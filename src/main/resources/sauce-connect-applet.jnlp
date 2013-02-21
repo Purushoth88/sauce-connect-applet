@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="" href="">
+    <information>
+       <title>Sauce Connect Applet</title>
+       <vendor>Sauce Labs</vendor>
+    </information>
+    <resources>
+        <j2se version="1.7+" href="http://java.sun/com/products/autodl/j2se"/>
+        <jar href="/Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0-jar-with-dependencies.jar" main="true"/>
+
+    </resources>
+    <applet-desc name="Sauce Connect Applet"
+            main-class="com.saucelabs.sauceconnect.SauceConnectApplet"
+            width="300"
+            height="300">
+        <param name="sauceUser" value="rossco_9_9"/>
+        <param name="sauceAccessKey" value="44f0744c-1689-4418-af63-560303cbb37b"/>
+    </applet-desc>
+    <update check="background"/>
+</jnlp>
