@@ -6,13 +6,13 @@
     </information>
     <resources>
         <j2se version="1.7+" href="http://java.sun/com/products/autodl/j2se"/>
-        <jar href="/Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0-jar-with-dependencies.jar" main="true"/>
+        <jar href="/Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0.0-SNAPSHOT-jar-with-dependencies.jar" main="true"/>
 
     </resources>
     <application-desc name="Sauce Connect Applet"
                       main-class="com.saucelabs.sauceconnect.SauceConnectApplet"
-                      width="300"
-                      height="300">
+                      width="600"
+                      height="600">
         <argument>rossco_9_9</argument>
         <argument>44f0744c-1689-4418-af63-560303cbb37b</argument>
     </application-desc>

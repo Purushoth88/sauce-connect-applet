@@ -23,21 +23,42 @@ public class SauceConnectForm extends JPanel implements ActionListener {
     private static final String LAUNCH_SAUCE_CONNECT = "Launch Sauce Connect";
     private JButton button;
     private static final String SHUTDOWN_SAUCE_CONNECT = "Shutdown Sauce Connect";
-    private String username;
-    private String accessKey;
+    private JTextField userNameField;
+    private JTextField accessKeyField;
 
-    public SauceConnectForm(BorderLayout borderLayout, String username, String accessKey) throws HeadlessException {
+    public SauceConnectForm(BorderLayout borderLayout) throws HeadlessException {
         super(borderLayout);
-        this.username = username;
-        this.accessKey = accessKey;
+        this.userNameField = new JTextField();
+        this.accessKeyField = new JTextField();
         setLayout(new FlowLayout());
+        createFieldPanel();
         createButton();
         createLogField();
         setVisible(true);
     }
 
+    private void createFieldPanel() {
+        JPanel labelPanel = new JPanel(new GridLayout(2, 1));
+        JPanel fieldPanel = new JPanel(new GridLayout(2, 1));
+        add(labelPanel, BorderLayout.WEST);
+        add(fieldPanel, BorderLayout.CENTER);
+        addField("User Name", labelPanel, fieldPanel, userNameField);
+        addField("Access Key", labelPanel, fieldPanel, accessKeyField);
+
+    }
+
+    private void addField(String labelText, JPanel labelPanel, JPanel fieldPanel, JTextField textField) {
+        textField.setColumns(20);
+        fieldPanel.add(textField);
+        JLabel label = new JLabel(labelText, JLabel.RIGHT);
+        label.setLabelFor(textField);
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel.add(label);
+        labelPanel.add(panel);
+    }
+
     private void createLogField() {
-        JTextArea textArea = new JTextArea(20, 50);
+        JTextArea textArea = new JTextArea(30, 30);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
@@ -47,9 +68,7 @@ public class SauceConnectForm extends JPanel implements ActionListener {
         System.setErr(ps);
 
         JScrollPane scrollPane = new JScrollPane(textArea);
-//        scrollPane.setPreferredSize(new Dimension(175, 150));
         add(scrollPane, BorderLayout.CENTER);
-        //setBorder(BorderFactory.createEmptyBorder(35, 10, 35, 10));
     }
 
     private void createButton() {
@@ -68,7 +87,7 @@ public class SauceConnectForm extends JPanel implements ActionListener {
                         public Object run() {
                             System.out.println("About to start Sauce Connect");
                             File logFileLocation = new File(System.getProperty("java.io.tmpdir"), "sauce-connect.log");
-                            SauceConnect.main(new String[]{"rossco_9_9", "44f0744c-1689-4418-af63-560303cbb37b", "-l", logFileLocation.getAbsolutePath()});
+                            SauceConnect.main(new String[]{userNameField.getText(), accessKeyField.getText(), "-l", logFileLocation.getAbsolutePath()});
                             return null;
                         }
                     });

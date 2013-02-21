@@ -6,12 +6,12 @@
 <body>
 <script src="http://www.java.com/js/deployJava.js"></script>
 <script>
-    var attributes = {code:'SauceConnectApplet.class',
-        archive:'/Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0-jar-with-dependencies.jar',
-        width:800,
-        height:600};
+    var attributes = {code:'com.saucelabs.sauceconnect.SauceConnectApplet.class',
+        archive:'/Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0.0-SNAPSHOT-jar-with-dependencies.jar',
+        width:500,
+        height:800};
     var parameters = {jnlp_href:'sauce-connect-applet.jnlp'};
-    deployJava.runApplet(attributes, parameters, '1.7');
+    deployJava.runApplet(attributes, '1.7');
 
 </script>
 </body>

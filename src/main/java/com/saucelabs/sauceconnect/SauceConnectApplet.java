@@ -12,13 +12,10 @@ public class SauceConnectApplet extends JApplet {
     @Override
     public void init() {
         super.init();
-        final String username = getParameter("sauceUser");
-        final String accessKey = getParameter("sauceAccessKey");
-
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                    createGUI(username, accessKey);
+                    createGUI();
                 }
             });
         } catch (InterruptedException e) {
@@ -28,8 +25,8 @@ public class SauceConnectApplet extends JApplet {
         }
     }
 
-    private void createGUI(String username, String accessKey) {
-        setContentPane(new SauceConnectForm(new BorderLayout(), username, accessKey));
+    private void createGUI() {
+        setContentPane(new SauceConnectForm(new BorderLayout()));
     }
 
     public static final void main(String[] args) {
