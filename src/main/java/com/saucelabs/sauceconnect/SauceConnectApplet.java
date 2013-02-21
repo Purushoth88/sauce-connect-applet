@@ -34,8 +34,8 @@ public class SauceConnectApplet extends JApplet {
         applet.init();
         applet.start();
         JFrame window = new JFrame("Sauce Connect");
-        window.setContentPane(applet);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setContentPane(new SauceConnectForm(new BorderLayout()));
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
     }

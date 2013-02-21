@@ -58,14 +58,19 @@ public class SauceConnectForm extends JPanel implements ActionListener {
     }
 
     private void createLogField() {
-        JTextArea textArea = new JTextArea(30, 30);
+        final JTextArea textArea = new JTextArea(30, 30);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
-        TextAreaOutputStream taos = new TextAreaOutputStream(textArea, 60);
-        PrintStream ps = new PrintStream(taos);
-        System.setOut(ps);
-        System.setErr(ps);
+        AccessController.doPrivileged(new PrivilegedAction() {
+            public Object run() {
+                TextAreaOutputStream taos = new TextAreaOutputStream(textArea, 60);
+                PrintStream ps = new PrintStream(taos);
+                System.setOut(ps);
+                System.setErr(ps);
+                return null;
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane(textArea);
         add(scrollPane, BorderLayout.CENTER);

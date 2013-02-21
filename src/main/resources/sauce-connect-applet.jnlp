@@ -6,7 +6,7 @@
     </information>
     <resources>
         <j2se version="1.7+" href="http://java.sun/com/products/autodl/j2se"/>
-        <jar href="file:///Developer/workspace/sauce-connect-applet/target/sauce-connect-applet-1.0.0-SNAPSHOT-jar-with-dependencies.jar" main="true"/>
+        <jar href="/Users/ross/Downloads/sauce-connect-applet-1.0.1-jar-with-dependencies.jar" main="true"/>
     </resources>
     <applet-desc name="Sauce Connect Applet"
             main-class="com.saucelabs.sauceconnect.SauceConnectApplet"
