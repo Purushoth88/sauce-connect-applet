@@ -1,12 +1,16 @@
 package com.saucelabs.sauceconnect;
 
+import org.apache.commons.io.FileUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.concurrent.ExecutorService;
@@ -25,9 +29,11 @@ public class SauceConnectForm extends JPanel implements ActionListener {
     private static final String SHUTDOWN_SAUCE_CONNECT = "Shutdown Sauce Connect";
     private JTextField userNameField;
     private JTextField accessKeyField;
+    private String jythonJar;
 
-    public SauceConnectForm(BorderLayout borderLayout) throws HeadlessException {
+    public SauceConnectForm(BorderLayout borderLayout, String jythonJar) throws HeadlessException {
         super(borderLayout);
+        this.jythonJar = jythonJar;
         this.userNameField = new JTextField();
         this.accessKeyField = new JTextField();
         setLayout(new FlowLayout());
@@ -91,8 +97,21 @@ public class SauceConnectForm extends JPanel implements ActionListener {
                     AccessController.doPrivileged(new PrivilegedAction() {
                         public Object run() {
                             System.out.println("About to start Sauce Connect");
-                            File logFileLocation = new File(System.getProperty("java.io.tmpdir"), "sauce-connect.log");
-                            SauceConnect.main(new String[]{userNameField.getText(), accessKeyField.getText(), "-l", logFileLocation.getAbsolutePath()});
+                            System.out.println("Downloading Jython from " + jythonJar);
+                            File tempJythonJar = new File(System.getProperty("java.io.tmpdir"), "jython.jar");
+                            try {
+                                FileUtils.copyURLToFile(new URL(jythonJar), tempJythonJar);
+                                System.out.println("Download finished" + tempJythonJar.getAbsolutePath());
+                                File logFileLocation = new File(System.getProperty("java.io.tmpdir"), "sauce-connect.log");
+                                System.setProperty("python.cachedir.skip", "true");
+                                System.setProperty("python.cachedir", System.getProperty("java.io.tmpdir"));
+                                System.setProperty("python.path", tempJythonJar.getAbsolutePath());
+                                System.setProperty("python.home", tempJythonJar.getAbsolutePath());
+                                SauceConnect.main(new String[]{userNameField.getText(), accessKeyField.getText(), "-l", logFileLocation.getAbsolutePath()});
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             return null;
                         }
                     });

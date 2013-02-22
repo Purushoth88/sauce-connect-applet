@@ -12,10 +12,11 @@ public class SauceConnectApplet extends JApplet {
     @Override
     public void init() {
         super.init();
+        final String jythonJar = getParameter("jythonJar");
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                    createGUI();
+                    createGUI(jythonJar);
                 }
             });
         } catch (InterruptedException e) {
@@ -25,8 +26,8 @@ public class SauceConnectApplet extends JApplet {
         }
     }
 
-    private void createGUI() {
-        setContentPane(new SauceConnectForm(new BorderLayout()));
+    private void createGUI(String jythonJar) {
+        setContentPane(new SauceConnectForm(new BorderLayout(), jythonJar));
     }
 
     public static final void main(String[] args) {
@@ -34,7 +35,7 @@ public class SauceConnectApplet extends JApplet {
         applet.init();
         applet.start();
         JFrame window = new JFrame("Sauce Connect");
-        window.setContentPane(new SauceConnectForm(new BorderLayout()));
+        window.setContentPane(new SauceConnectForm(new BorderLayout(), ""));
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
