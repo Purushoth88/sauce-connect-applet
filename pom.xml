@@ -103,7 +103,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce-connect</artifactId>
-            <version>3.0.25-SNAPSHOT</version>
+            <version>3.0.24</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
